@@ -1,0 +1,956 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0168)http://www.google.com.br/search?q=cache:v8h-FNgn1SgJ:www.universiabrasil.net/mit/6/6.170/pdf/6.170_lecture-17.pdf+padr%C3%A3o+de+projeto+erich+gamma&hl=pt-BR&lr=lang_pt -->
+<HTML><HEAD><TITLE>Aula 17: Estudo de Caso: JUnit</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="MSHTML 6.00.2737.800" name=GENERATOR></HEAD>
+<BODY vLink=blue link=blue bgColor=#ffffff>
+<TABLE width="100%" border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=10 width="100%" bgColor=#ffffff border=1 
+      color="#ffffff">
+        <TBODY>
+        <TR>
+          <TD><FONT face=arial,sans-serif color=black size=-1>Esta é a versão 
+            em html do arquivo <A 
+            href="http://www.universiabrasil.net/mit/6/6.170/pdf/6.170_lecture-17.pdf"><FONT 
+            color=blue>http://www.universiabrasil.net/mit/6/6.170/pdf/6.170_lecture-17.pdf</FONT></A>.<BR><B><FONT 
+            color=#0039b6>G</FONT> <FONT color=#c41200>o</FONT> <FONT 
+            color=#f3c518>o</FONT> <FONT color=#0039b6>g</FONT> <FONT 
+            color=#30a72f>l</FONT> <FONT color=#c41200>e</FONT></B> cria 
+            automaticamente versões em texto de documentos à medida que vasculha 
+            a web.<BR>Para criar um link para esta página ou armazenar 
+            referência a ela, use: 
+            <CODE>http://www.google.com/search?q=cache:v8h-FNgn1SgJ:www.universiabrasil.net/mit/6/6.170/pdf/6.170_lecture-17.pdf+padr%C3%A3o+de+projeto+erich+gamma&amp;hl=pt-BR&amp;lr=lang_pt</CODE></FONT><BR><BR>
+            <CENTER><FONT size=-2><I>O Google não é associado aos autores desta 
+            página nem é responsável por seu conteúdo.</I></FONT></CENTER></TD></TR>
+        <TR>
+          <TD>
+            <TABLE cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD><FONT face=arial,sans-serif color=black size=-1>Os 
+                  seguintes termos de pesquisa foram destacados:&nbsp;</FONT></TD>
+                <TD bgColor=#ffff66><B><FONT face=arial,sans-serif color=black 
+                  size=-1>padrão&nbsp;</FONT></B></TD>
+                <TD bgColor=#a0ffff><B><FONT face=arial,sans-serif color=black 
+                  size=-1>projeto&nbsp;</FONT></B></TD>
+                <TD bgColor=#99ff99><B><FONT face=arial,sans-serif color=black 
+                  size=-1>erich&nbsp;</FONT></B></TD>
+                <TD bgColor=#ff9999><B><FONT face=arial,sans-serif color=black 
+                  size=-1>gamma&nbsp;</FONT></B></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<HR>
+
+<STYLE type=text/css>.goohl0 {
+	COLOR: black; BACKGROUND-COLOR: #ffff66
+}
+.goohl1 {
+	COLOR: black; BACKGROUND-COLOR: #a0ffff
+}
+.goohl2 {
+	COLOR: black; BACKGROUND-COLOR: #99ff99
+}
+.goohl3 {
+	COLOR: black; BACKGROUND-COLOR: #ff9999
+}
+</STYLE>
+
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD align=right bgColor=#eeeeee><FONT face=arial,sans-serif><A 
+      name=1><B>Page 1</B></A></FONT></TD></TR></TBODY></TABLE><FONT face=Times 
+size=4><SPAN style="FONT-SIZE: 24px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 288px"><NOBR><B>Aula 17: 
+Estudo de Caso: JUnit</B></NOBR></DIV></SPAN></FONT><FONT face=Times 
+size=3><SPAN style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 350px"><NOBR>O framework JUnit 
+o qual você tem usado para testar seu próprio código no curso 6170 merece, 
+ele</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 374px"><NOBR>próprio, ser 
+estudado. Ele foi desenvolvido por Kent Beck e <B><SPAN class=goohl2>Erich 
+</SPAN></B><B><SPAN class=goohl3>Gamma</SPAN></B>. Beck é um 
+notório</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 399px"><NOBR>conhecido por seu 
+trabalho com padrões e com a Programação XP (<I>Extreme 
+Programming</I>);</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 424px"><NOBR><B><SPAN 
+class=goohl3>Gamma</SPAN></B> é um dos autores de um dos mais famosos livros de 
+padrões de <B><SPAN class=goohl1>projeto</SPAN></B>. JUnit tem 
+código</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 449px"><NOBR>livre, portanto, 
+você pode estudar seu código fonte por si próprio. Há também um ótimo 
+artigo</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 473px"><NOBR>explicativo na 
+distribuição do JUnit, intitulado '<I>A Cook's Tour</I>', que explica o <B><SPAN 
+class=goohl1>projeto</SPAN></B> do JUnit em</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 498px"><NOBR>termos de padrões 
+de <B><SPAN class=goohl1>projeto</SPAN></B>, e sobre o qual muito do material 
+desta aula se baseia.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 547px"><NOBR>O JUnit tem sido 
+um grande sucesso. Martin Fowler, um astuto e pragmático defensor dos padrões 
+e</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 572px"><NOBR>da programação XP 
+(e também autor do maravilhoso livro sobre modelos de objetos 
+denominado</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 596px"><NOBR><I>Analysis 
+Patterns</I>) menciona a respeito do JUnit:</NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 646px"><NOBR><I>Nunca no campo 
+do desenvolvimento de software se deveu tanto e por tantos para</I></NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 671px"><NOBR><I>tão poucas 
+linhas de código.</I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 720px"><NOBR>Em grande parte, 
+o JUnit é fácil de ser utilizado, sem dúvida, por razão de sua popularidade. 
+Pode-</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 744px"><NOBR>se pensar que, já 
+que não faz muita coisa - ele só roda um grupo de testes e reporta seus 
+resultados -</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 769px"><NOBR>JUnit deve ser 
+bem simples. De fato, seu código é um tanto complicado. A razão principal para 
+a</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 794px"><NOBR>sua complexidade 
+é que ele foi projetado como um framework, para ser estendido de 
+diversas</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 819px"><NOBR>formas não 
+previstas, portanto, ele é cheio de padrões complexos e generalizações 
+projetadas para</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 843px"><NOBR>permitir que um 
+desenvolvedor sobreponha algumas de suas partes enquanto preserva 
+outras.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 892px"><NOBR>Uma outra 
+influência que adicionou complicação ao <B><SPAN class=goohl1>projeto</SPAN></B> 
+foi o desejo de tornar a escrita de testes</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 917px"><NOBR>uma atividade 
+simples. Foi utilizada uma técnica bem engenhosa (um 'hack') envolvendo a 
+técnica</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 942px"><NOBR>de reflexão, que 
+transforma métodos de uma classe em instâncias individuais do tipo 
+<I><B>Test</B></I>.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 991px"><NOBR>Também foi 
+utilizada uma outra técnica que, à primeira vista, parece inaceitável. A classe 
+abstrata</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1016px"><NOBR><I><B>TestCase 
+</B></I>herda da classe <I><B>Assert</B></I>, que contém um punhado de métodos 
+estáticos de certificação,</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1040px"><NOBR>simplesmente, 
+para que a invocação do método <I>assert </I>fosse apenas o comando 
+<I>assert(...)</I>, ao invés</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1065px"><NOBR>de 
+<I>Assert.assert(...)</I>. De nenhuma forma <I><B>TestCase </B></I>é um subtipo 
+de <I><B>Assert</B></I>, é claro, portanto esta</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1090px"><NOBR>estruturação 
+realmente não faz sentido. Mas ela permite que código pertencente a 
+<I><B>TestCase </B></I>seja</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1114px"><NOBR>escrito de 
+maneira mais sucinta. E como todos os casos de teste que o usuário escreve são 
+métodos</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1139px"><NOBR>da classe 
+<I><B>TestCase</B></I>, este fato é bastante significativo.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1188px"><NOBR>A utilização de 
+padrões é uma atividade de muita perícia e muito justificável. Os padrões 
+chaves</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1213px"><NOBR>que iremos 
+analisar são: <I>Template Method</I>, o <B><SPAN class=goohl0>padrão</SPAN></B> 
+chave da programação de frameworks;</NOBR></DIV></SPAN></FONT>
+<DIV style="LEFT: 0px; POSITION: absolute; TOP: 1363px">
+<HR>
+
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD align=right bgColor=#eeeeee><FONT face=arial,sans-serif><A 
+      name=2><B>Page 2</B></A></FONT></TD></TR></TBODY></TABLE></DIV><FONT face=Times 
+size=3><SPAN style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1473px"><NOBR><I>Command</I>, 
+<I>Composite</I>, e <I>Observer</I>. Todos estes padrões são amplamente 
+explicados em Gama et al,</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1498px"><NOBR>e, com exceção 
+de <I>Command</I>, já foram abordados neste curso.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1547px"><NOBR>Minha opinião 
+pessoal é que o próprio JUnit, a jóia da programação XP, fere a 
+mensagem</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1571px"><NOBR>fundamental do 
+movimento XP - a de que código sozinho é suficiente para sua compreensão. 
+O</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1596px"><NOBR>JUnit é um 
+exemplo perfeito de programa que é quase incompreensível sem que 
+algumas</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1621px"><NOBR>representações 
+globais do <B><SPAN class=goohl1>projeto</SPAN></B> sejam explicadas de maneira 
+que se possa entender como elas se</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1646px"><NOBR>encaixam. O fato 
+de que o código possui poucos comentários não ajuda - e onde 
+existem</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1670px"><NOBR>comentários, 
+eles são extremamente obscuros. O artigo '<I>Cook's Tour</I>' é essencial; sem 
+ele, seriam</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1695px"><NOBR>necessárias 
+várias horas para se compreender as sutilezas do que está acontecendo no código. 
+Além</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1719px"><NOBR>disso, seria de 
+grande ajuda se tivéssemos mais representações do <B><SPAN 
+class=goohl1>projeto</SPAN></B>. O artigo apresenta uma</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1744px"><NOBR>visão 
+simplificada e, eu mesmo, tive que construir um modelo de objeto explicando, por 
+exemplo,</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1769px"><NOBR>como o esquema 
+de <I>listeners </I>(os métodos que respondem a eventos de interface) 
+funciona.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1818px"><NOBR>Se você é um 
+daqueles estudantes que não acredita em representações de <B><SPAN 
+class=goohl1>projeto</SPAN></B>, e que ainda pensa</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1843px"><NOBR>que código é 
+tudo o que importa, você deveria parar de ler por aqui, e se enclausurar em 
+algum</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1867px"><NOBR>quarto para 
+dedicar uma manhã inteira ao código do JUnit. Com isto, talvez você mude de 
+idéia...</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 1917px"><NOBR>Você pode fazer 
+o download do código fonte e da documentação do JUnit no endereço:</NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 1967px"><NOBR><I><B>http://www.junit.org/.</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 2016px"><NOBR>Há um 
+repositório de código livre no endereço:</NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 2065px"><NOBR><I><B>http://sourceforge.net/projects/junit/</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 2114px"><NOBR>onde pode-se ver 
+(e contribuir) com descobertas de bugs.</NOBR></DIV></SPAN></FONT><FONT 
+face=Times size=3><SPAN style="FONT-SIZE: 18px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 2166px"><NOBR><B>17.1 Visão 
+Geral</B></NOBR></DIV></SPAN></FONT><FONT face=Times size=3><SPAN 
+style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 2219px"><NOBR>O JUnit possui 
+diversos packages: <I>framework </I>como pacote básico do framework, <I>runner 
+</I>para</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 2244px"><NOBR>algumas classes 
+abstratas e para a execução de testes, <I>textui </I>e <I>swingui </I>para 
+interfaces de usuário, e</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 2269px"><NOBR><I>extensions 
+</I>para algumas contribuições úteis ao framework. Iremos focar no pacote 
+framework. Os</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 2293px"><NOBR>diagramas abaixo 
+apresentam o modelo de objeto e o diagrama de dependência modular. Pode 
+ser</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 2318px"><NOBR>necessário 
+acompanhar estes diagramas ao passo que você lê nossa discussão. Ambos os 
+diagramas</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 2343px"><NOBR>incluem apenas 
+os módulos do framework, no entanto, eu inclui <I>TestRunner </I>no modelo de 
+objeto</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 2367px"><NOBR>para demonstrar 
+como os <I>listeners </I>são conectados; suas relações <I>suite </I>e <I>result 
+</I>são variáveis locais</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 2392px"><NOBR>de seu método 
+<I>doRun</I>.</NOBR></DIV></SPAN></FONT>
+<DIV style="LEFT: 0px; POSITION: absolute; TOP: 2551px">
+<HR>
+
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD align=right bgColor=#eeeeee><FONT face=arial,sans-serif><A 
+      name=3><B>Page 3</B></A></FONT></TD></TR></TBODY></TABLE></DIV><FONT face=Times 
+size=3><SPAN style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 3298px"><NOBR>Perceba que o 
+diagrama de dependência modular está quase todo conectado. Isto não 
+é</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 3322px"><NOBR>surpreendente 
+para um framework; não se supõe que módulos sejam utilizados 
+independentemente.</NOBR></DIV></SPAN></FONT><FONT face=Times size=3><SPAN 
+style="FONT-SIZE: 18px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 3373px"><NOBR><B>17.2 O 
+<B><SPAN class=goohl0>Padrão</SPAN></B> 
+<I>Command</B></I></NOBR></DIV></SPAN></FONT><FONT face=Times size=3><SPAN 
+style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 3427px"><NOBR>O <B><SPAN 
+class=goohl0>padrão</SPAN></B> <I><B>Command </B></I>encapsula uma função como 
+um objeto. É dessa forma que se implementa um</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 3452px"><NOBR>fechamento 
+(closure, ou clausura) - lembra-se do curso 6001? - em uma linguagem orientada 
+a</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 3477px"><NOBR>objetos. A 
+classe de comando, tipicamente, possui um único método com um nome do tipo 
+<I>do, run</I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 3501px"><NOBR>ou 
+<I>perform</I>. Uma instância de uma subclasse é criada sobrepondo este método, 
+encapsulando</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 3526px"><NOBR>também, 
+normalmente, algum estado da classe (na linguagem do curso 6001, o ambiente 
+do</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 3551px"><NOBR>fechamento). O 
+comando pode então ser passado como um objeto, e executado invocando-se 
+o</NOBR></DIV>
+<DIV 
+style="LEFT: 127px; POSITION: absolute; TOP: 3575px"><NOBR>método.</NOBR></DIV></SPAN></FONT>
+<DIV style="LEFT: 0px; POSITION: absolute; TOP: 3739px">
+<HR>
+
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD align=right bgColor=#eeeeee><FONT face=arial,sans-serif><A 
+      name=4><B>Page 4</B></A></FONT></TD></TR></TBODY></TABLE></DIV><FONT face=Times 
+size=3><SPAN style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 3849px"><NOBR>No JUnit, casos 
+de teste são representados através de objetos comando que implementam a 
+interface</NOBR></DIV>
+<DIV 
+style="LEFT: 127px; POSITION: absolute; TOP: 3874px"><NOBR><I><B>Test</B></I>:</NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 3923px"><NOBR><I><B>public 
+interface Test {</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 3948px"><NOBR><I><B>public 
+void run();</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 3973px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4022px"><NOBR>Casos de teste 
+verdadeiros são instâncias de uma subclasse de uma classe concreta 
+<I><B>TestCase</B></I>:</NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 4071px"><NOBR><I><B>public 
+abstract class TestCase implements Test {</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 4096px"><NOBR><I><B>private 
+String fName;</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 4121px"><NOBR><I><B>public 
+TestCase(String name) {</B></I></NOBR></DIV>
+<DIV style="LEFT: 289px; POSITION: absolute; TOP: 4145px"><NOBR><I><B>fName= 
+name;</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 4170px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 4194px"><NOBR><I><B>public 
+void run() {</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 289px; POSITION: absolute; TOP: 4219px"><NOBR><I><B>…</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 4244px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 4268px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4342px"><NOBR>De fato, o 
+código verdadeiro não é muito parecido com isto, mas partir desta versão 
+simplificada irá</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4367px"><NOBR>nos permitir 
+explicar os padrões básicos mais facilmente. Perceba que o construtor associa 
+um</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4392px"><NOBR>nome ao caso de 
+teste, o qual será útil quando os resultados forem reportados. De fato, todas 
+as</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4416px"><NOBR>classes que 
+implementam <I><B>Test </B></I>possuem esta propriedade, portanto, pode ter sido 
+uma boa idéia ter-</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4441px"><NOBR>se adicionado o 
+método</NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 4491px"><NOBR><I><B>public 
+String getName ()</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4540px"><NOBR>à interface 
+<I><B>Test</B></I>. Perceba também que os autores do JUnit utilizam a convenção 
+de que</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4564px"><NOBR>identificadores 
+iniciados por um <I>f </I>minúsculo são campos de uma classe (isto é, variáveis 
+de</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4589px"><NOBR>instância). 
+Veremos um exemplo mais elaborado do <B><SPAN class=goohl0>padrão</SPAN></B> 
+<I><B>Command </B></I>quando estudarmos o</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4613px"><NOBR>programa Tagger 
+mais adiante no curso.</NOBR></DIV></SPAN></FONT><FONT face=Times size=3><SPAN 
+style="FONT-SIZE: 18px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4665px"><NOBR><B>17.3 O Método 
+<I>Template</B></I></NOBR></DIV></SPAN></FONT><FONT face=Times size=3><SPAN 
+style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4719px"><NOBR>Pode-se 
+determinar que <I>run </I>(da interface <I><B>Test</B></I>) seja um método 
+abstrato, que exige, portanto, que</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4743px"><NOBR>todas as 
+subclasses o sobreponham. Mas a maioria dos casos de teste possuem três 
+fases:</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4768px"><NOBR>determinação do 
+contexto, execução do teste e, então, desmontagem do contexto. 
+Podemos</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 4793px"><NOBR>automatizar a 
+utilização desta estrutura fazendo com que <I>run </I>seja um método 
+<I><B>template</B></I>.</NOBR></DIV></SPAN></FONT>
+<DIV style="LEFT: 0px; POSITION: absolute; TOP: 4927px">
+<HR>
+
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD align=right bgColor=#eeeeee><FONT face=arial,sans-serif><A 
+      name=5><B>Page 5</B></A></FONT></TD></TR></TBODY></TABLE></DIV><FONT face=Times 
+size=3><SPAN style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 5062px"><NOBR><I><B>public 
+void run() {</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 5086px"><NOBR><I><B>setUp();</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 5111px"><NOBR><I><B>runTest();</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 5136px"><NOBR><I><B>tearDown();</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 5161px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5210px"><NOBR>As 
+implementações <B><SPAN class=goohl0>padrão</SPAN></B> dos métodos hook (gancho, 
+como visto na última aula), invocados por</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5234px"><NOBR><I>run</I>, não 
+fazem nenhum processamento:</NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 5284px"><NOBR><I><B>protected 
+void setUp() { }</B></I></NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 5309px"><NOBR><I><B>protected 
+void runTest() { }</B></I></NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 5333px"><NOBR><I><B>protected 
+void tearDown() { }</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5382px"><NOBR>Eles são 
+declarados como <I><B>protected </B></I>de forma que sejam acessíveis a partir 
+de subclasses (podendo,</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5407px"><NOBR>portanto, serem 
+sobrepostos), mas que não sejam acessíveis de fora do package. Seria 
+ótimo</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5431px"><NOBR>restringir o 
+acesso apenas às subclasses, mas o Java não oferece este modo. Uma subclasse 
+pode</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5456px"><NOBR>arbitrariamente 
+sobrepor estes métodos; se sobrepuser apenas <I>runTest</I>, por exemplo, não 
+haverá</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5481px"><NOBR>nenhum 
+comportamento especial dos métodos <I>setUp </I>ou <I>TearDown</I>.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5530px"><NOBR>Observamos este 
+mesmo <B><SPAN class=goohl0>padrão</SPAN></B> na última aula, nas implementações 
+organizadas em hierarquias de</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5555px"><NOBR>esqueleto da API 
+de coleções do Java. Este <B><SPAN class=goohl0>padrão</SPAN></B>, às vezes, é 
+referenciado de uma forma um tanto</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5580px"><NOBR>quanto 
+brincalhona como o '<I>Princípio de Hollywood</I>': uma API tradicional fornece 
+métodos que</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5604px"><NOBR>podem ser 
+chamados pelo cliente; um framework, em contraste, faz chamadas aos métodos de 
+seu</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5629px"><NOBR>cliente: 'não 
+nos chame, iremos chamar você'.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5678px"><NOBR>A utilização 
+cada vez mais abrangente dos <I><B>templates </B></I>é a essência da programação 
+de frameworks.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5703px"><NOBR>Seu uso é 
+bastante poderoso, mas os frameworks tornam possível, também, códigos escritos 
+de</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5728px"><NOBR>maneira 
+completamente incompreensível, pois as implementações realizam chamadas em todos 
+os</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5752px"><NOBR>níveis da 
+hierarquia de herança.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5801px"><NOBR>Pode ser difícil 
+saber o que esperar de uma subclasse em um framework. Uma analogia 
+das</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5826px"><NOBR>cláusulas 
+<I>pre-conditions </I>e <I>pos-conditions </I>não foi desenvolvida, e o estado 
+da arte ainda é um tanto</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5851px"><NOBR>imaturo. 
+Normalmente, você deve ler o código fonte do framework para utilizá-lo 
+eficientemente. A</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5875px"><NOBR>API de coleções 
+do Java é melhor do que a maioria dos frameworks, pois inclui, nas 
+especificações</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5900px"><NOBR>dos métodos 
+<I><B>template</B></I>, descrições cuidadosas de como eles são implementados. 
+Isto pode ser</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 5925px"><NOBR>considerado uma 
+afronta à idéia de especificação abstrata, mas é inevitável no contexto de 
+um</NOBR></DIV>
+<DIV 
+style="LEFT: 127px; POSITION: absolute; TOP: 5949px"><NOBR>framework.</NOBR></DIV></SPAN></FONT>
+<DIV style="LEFT: 0px; POSITION: absolute; TOP: 6115px">
+<HR>
+
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD align=right bgColor=#eeeeee><FONT face=arial,sans-serif><A 
+      name=6><B>Page 6</B></A></FONT></TD></TR></TBODY></TABLE></DIV><FONT face=Times 
+size=3><SPAN style="FONT-SIZE: 18px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6227px"><NOBR><B>17.4 O 
+<B><SPAN class=goohl0>Padrão</SPAN></B> 
+<I>Composite</B></I></NOBR></DIV></SPAN></FONT><FONT face=Times size=3><SPAN 
+style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6281px"><NOBR>Como discutimos 
+na aula 11, casos de teste são agrupados em suítes de teste. Mas aquilo que se 
+faz</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6305px"><NOBR>com um suíte de 
+testes é essencialmente a mesma coisa que se faz com um teste: você o executa, 
+e</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6330px"><NOBR>reporta o 
+resultado. Isto nos sugere o utilizar o <B><SPAN class=goohl0>padrão</SPAN></B> 
+<I><B>Composite</B></I>, no qual um objeto composto</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6355px"><NOBR>compartilha sua 
+interface com seus componentes elementares.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6404px"><NOBR>Aqui, a 
+interface é a interface <I><B>Test</B></I>, o objeto composto (ou objeto 
+<I><B>composite</B></I>) é <I><B>TestSuite</B></I>, e os</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6429px"><NOBR>componentes 
+elementares são membros de <I><B>TestCase</B></I>. <I><B>TestSuite </B></I>é uma 
+classe concreta que</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6454px"><NOBR>implementa 
+<I><B>Test</B></I>, mas cujo método <I>run</I>, diferente do método <I>run 
+</I>de <I><B>TestCase</B></I>, invoca o método <I>run</I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6478px"><NOBR>de cada um dos 
+testes que o suíte de testes contém. Instâncias de <I><B>TestCase </B></I>são 
+adicionadas à</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6503px"><NOBR>instância de 
+<I><B>TestSuite </B></I>através do método <I>addTest</I>; há também um 
+construtor que cria um <I><B>TestSuite</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6527px"><NOBR>como um grupo de 
+casos de teste, como veremos mais tarde.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6577px"><NOBR>No exemplo de 
+<I><B>Composite </B></I>do livro de <B><SPAN class=goohl3>Gamma</SPAN></B> a 
+interface inclui todas as operações do objeto</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6602px"><NOBR>composto. 
+Seguindo esta abordagem, <I><B>Test </B></I>deveria incluir métodos como 
+<I>addTest</I>, que se aplicam</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6626px"><NOBR>somente a 
+objetos <I><B>TestSuite</B></I>. A sessão de implementação da descrição do 
+<B><SPAN class=goohl0>padrão</SPAN></B> explica que há</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6651px"><NOBR>uma troca entre 
+transparência - fazer com que o objeto composto e seus objetos folha (objetos 
+que</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6675px"><NOBR>estão ligados) 
+mostrem-se da mesma forma - e segurança - prevenção de invocações a 
+operações</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6700px"><NOBR>não apropriadas. 
+Nos termos da discussão de nossa aula sobre subtipagem, questiona-se se 
+a</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6725px"><NOBR>interface 
+deveria ser um verdadeiro supertipo. Na minha opinião, deveria ser, pois os 
+benefícios da</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6750px"><NOBR>segurança são 
+maiores do que os benefícios da transparência, e, além disso, a inclusão 
+das</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6774px"><NOBR>operações 
+compostas na interface gera confusão. O <B><SPAN class=goohl1>projeto</SPAN></B> 
+JUnit segue esta abordagem, e não</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6799px"><NOBR>incluiu 
+<I>addTest </I>em sua interface 
+<I><B>Test</B></I>.</NOBR></DIV></SPAN></FONT><FONT face=Times size=3><SPAN 
+style="FONT-SIZE: 18px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6850px"><NOBR><B>17.5 O 
+<B><SPAN class=goohl0>Padrão</SPAN></B> Parâmetro de 
+Coleta</B></NOBR></DIV></SPAN></FONT><FONT face=Times size=3><SPAN 
+style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 6904px"><NOBR>O método <I>run 
+</I>de <I><B>Test</B></I>, na verdade, possui esta assinatura:</NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 6954px"><NOBR><I><B>public 
+void run(TestResult result);</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 7003px"><NOBR>Ele recebe um 
+único argumento que é alterado para registrar o resultado do código executado. 
+Beck</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 7027px"><NOBR>chama esta 
+técnica de 'Parâmetro de coleta', e a vê como um <B><SPAN 
+class=goohl0>padrão</SPAN></B> de <B><SPAN class=goohl1>projeto</SPAN></B> da 
+sua própria</NOBR></DIV>
+<DIV 
+style="LEFT: 127px; POSITION: absolute; TOP: 7052px"><NOBR>maneira.</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 7102px"><NOBR>Existem duas 
+maneiras através das quais um teste pode falhar. Ou o teste produz o resultado 
+errado</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 7126px"><NOBR>(o que pode 
+incluir não jogar a exceção esperada), ou joga uma exceção não esperada (tal 
+como</NOBR></DIV>
+<DIV 
+style="LEFT: 127px; POSITION: absolute; TOP: 7151px"><NOBR><I>IndexOutOfBoundsException</I>). 
+JUnit denomina o primeiro caso de '<I>failure</I>', ou falha, e o segundo 
+de</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 7175px"><NOBR>'<I>error</I>', 
+ou erro. Uma instância de <I><B>TestResult </B></I>contém uma seqüência de 
+falhas e uma seqüência de</NOBR></DIV></SPAN></FONT>
+<DIV style="LEFT: 0px; POSITION: absolute; TOP: 7303px">
+<HR>
+
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD align=right bgColor=#eeeeee><FONT face=arial,sans-serif><A 
+      name=7><B>Page 7</B></A></FONT></TD></TR></TBODY></TABLE></DIV><FONT face=Times 
+size=3><SPAN style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 7413px"><NOBR>erros, sendo que 
+cada falha ou erro é representado como uma instância da classe 
+<I><B>TestFailure</B></I>, que</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 7438px"><NOBR>contém uma 
+referência para um <I><B>Test </B></I>e uma referência para o objeto de exceção 
+gerado pela falha ou</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 7462px"><NOBR>erro. (falhas 
+sempre produzem exceções, pois mesmo quando um resultado inesperado é 
+produzido</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 7487px"><NOBR>sem uma exceção, 
+o método <I>assert </I>utilizado no teste converte a falha em uma 
+exceção).</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 7536px"><NOBR>O método <I>run 
+</I>de <I><B>TestSuite </B></I>é, essencialmente, inalterado; ele apenas passa 
+um objeto <I><B>TestResult</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 7561px"><NOBR>quando invocar o 
+método <I>run </I>de cada um de seus testes. O método <I>run </I>de 
+<I><B>TestCase </B></I>se parece com</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 7586px"><NOBR>alguma coisa do 
+tipo:</NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 7635px"><NOBR><I><B>public 
+void run (TestResult result) {</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 7660px"><NOBR><I><B>setUp 
+();</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 7685px"><NOBR><I><B>try 
+{</B></I></NOBR></DIV>
+<DIV style="LEFT: 289px; POSITION: absolute; TOP: 7709px"><NOBR><I><B>runTest 
+();</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 7734px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 7758px"><NOBR><I><B>catch</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 289px; POSITION: absolute; TOP: 7783px"><NOBR><I><B>(AssertionFailedError 
+e) {</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 343px; POSITION: absolute; TOP: 7808px"><NOBR><I><B>result.addFailure 
+(test, e);</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 289px; POSITION: absolute; TOP: 7832px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 289px; POSITION: absolute; TOP: 7857px"><NOBR><I><B>(Throwable 
+e) {</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 343px; POSITION: absolute; TOP: 7882px"><NOBR><I><B>result.addError 
+(test, e);</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 289px; POSITION: absolute; TOP: 7907px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 7931px"><NOBR><I><B>tearDown 
+();</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 7956px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 8029px"><NOBR>Na realidade, o 
+controle do fluxo do método template <I>run </I>é mais complicado do que 
+sugerimos no</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 8054px"><NOBR>código acima. No 
+código abaixo são apresentados alguns fragmentos de pseudocódigo</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 8079px"><NOBR>demonstrando o 
+que ocorre. No esquema apresentado o método <I>run </I>ignora as atividades 
+<I>setUp </I>e</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 8104px"><NOBR><I>tearDown</I>, 
+e contém uma utilização do <I><B>TestSuite </B></I>dentro de uma interface de 
+usuário de texto:</NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 8153px"><NOBR><I><B>junit.textui.TestRunner.doRun 
+(TestSuite suite) {</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 8178px"><NOBR><I><B>result = 
+new TestResult ();</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 8203px"><NOBR><I><B>result.addListener 
+(this);</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 8227px"><NOBR><I><B>suite.run 
+(result);</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 8252px"><NOBR><I><B>print 
+(result);</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 8276px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 8301px"><NOBR><I><B>junit.framework.TestSuite.run 
+(TestResult result) {</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 8326px"><NOBR><I><B>forall 
+test: suite.tests</B></I></NOBR></DIV>
+<DIV style="LEFT: 289px; POSITION: absolute; TOP: 8350px"><NOBR><I><B>test.run 
+(result);</B></I></NOBR></DIV></SPAN></FONT>
+<DIV style="LEFT: 0px; POSITION: absolute; TOP: 8491px">
+<HR>
+
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD align=right bgColor=#eeeeee><FONT face=arial,sans-serif><A 
+      name=8><B>Page 8</B></A></FONT></TD></TR></TBODY></TABLE></DIV><FONT face=Times 
+size=3><SPAN style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 8601px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 8626px"><NOBR><I><B>junit.framework.TestCase.run 
+(TestResult result) {</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 8650px"><NOBR><I><B>result.run 
+(this);</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 8675px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 8722px"><NOBR><I><B>junit.framework.TestResult.run 
+(Test test) {</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 8747px"><NOBR><I><B>try 
+{</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 289px; POSITION: absolute; TOP: 8772px"><NOBR><I><B>test.runBare 
+();</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 8796px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 8821px"><NOBR><I><B>catch 
+(AssertionFailedError e) {</B></I></NOBR></DIV>
+<DIV style="LEFT: 289px; POSITION: absolute; TOP: 8846px"><NOBR><I><B>addFailure 
+(test, e);</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 8870px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 8895px"><NOBR><I><B>catch 
+(Throwable e) {</B></I></NOBR></DIV>
+<DIV style="LEFT: 289px; POSITION: absolute; TOP: 8920px"><NOBR><I><B>addError 
+(test, e);</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 8944px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 8969px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 8993px"><NOBR><I><B>junit.framework.TestCase.runBare 
+(TestResult result) {</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 9018px"><NOBR><I><B>setUp();</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 9043px"><NOBR><I><B>try 
+{</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 289px; POSITION: absolute; TOP: 9068px"><NOBR><I><B>runTest();</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 9092px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 9117px"><NOBR><I><B>finally 
+{</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 289px; POSITION: absolute; TOP: 9141px"><NOBR><I><B>tearDown();</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 9166px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 9191px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9240px"><NOBR><I><B>TestRunner 
+</B></I>é uma classe de interface de usuário (<I>user interface </I>- <I>ui</I>) 
+que invoca o framework e</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9265px"><NOBR>exibi os 
+resultados. Há uma versão com interface gráfica de usuário <I><B>junit.swingui 
+</B></I>e uma versão</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9289px"><NOBR>simples com 
+terminal de texto <I><B>junit.textui</B></I>, da qual apresentamos um trecho. 
+Iremos apresentar o</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9314px"><NOBR>sistema de 
+<I>listener </I>mais tarde; ignore isso por enquanto. Veja como funciona o 
+código acima: o</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9338px"><NOBR>objeto 
+<I><B>TestRunner </B></I>cria um novo <I><B>TestResult </B></I>para armazenar os 
+resultados do teste; o <I><B>TestRunner</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9363px"><NOBR>executa a suíte 
+de testes, e exibe os resultados. O método <I>run </I>de <I><B>TestSuite 
+</B></I>invoca o método <I>run </I>de</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9388px"><NOBR>cada um de seus 
+testes constituintes; que podem, eles próprios, serem suítes de testes (objetos 
+do</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9412px"><NOBR>tipo 
+<I><B>TestSuite</B></I>), portanto, o método pode ser chamado recursivamente. 
+Este é um ótimo exemplo da</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9437px"><NOBR>simplicidade que 
+a técnica de <I><B>Composite </B></I>fornece. Eventualmente, como há uma 
+invariante que</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9462px"><NOBR>determina que um 
+<I><B>TestSuite </B></I>não pode conter a si mesmo - que, na verdade, não está 
+especificada e</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9487px"><NOBR>que também não 
+está definida pelo código de <I><B>TestSuite </B></I>- o método terminará por 
+invocar os</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9511px"><NOBR>métodos <I>run 
+</I>de objetos do tipo <I><B>TestCase</B></I>.</NOBR></DIV></SPAN></FONT>
+<DIV style="LEFT: 0px; POSITION: absolute; TOP: 9679px">
+<HR>
+
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD align=right bgColor=#eeeeee><FONT face=arial,sans-serif><A 
+      name=9><B>Page 9</B></A></FONT></TD></TR></TBODY></TABLE></DIV><FONT face=Times 
+size=3><SPAN style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9789px"><NOBR>Agora, no método 
+<I>run </I>de <I><B>TestCase</B></I>, o objeto receptor <I><B>TestCase 
+</B></I>troca de lugar com o objeto</NOBR></DIV>
+<DIV 
+style="LEFT: 127px; POSITION: absolute; TOP: 9814px"><NOBR><I><B>TestResult</B></I>, 
+e invoca o método <I>run </I>de <I><B>TestResult </B></I>com o <I><B>TestCase 
+</B></I>como um argumento. (Por que?).</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9838px"><NOBR>O método <I>run 
+</I>de <I><B>TestResult</B></I>, então, invoca o método <I>runBare </I>de 
+<I><B>TestCase </B></I>que, na verdade, é o</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9863px"><NOBR>método 
+<I><B>template </B></I>que executa o teste. Se o teste falha, ele joga uma 
+exceção, que é interceptada pelo</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9887px"><NOBR>método <I>run 
+</I>de <I><B>TestResult</B></I>, que, então, empacota o teste e a exceção como 
+uma falha ou um erro do</NOBR></DIV>
+<DIV 
+style="LEFT: 127px; POSITION: absolute; TOP: 9912px"><NOBR><I><B>TestResult</B></I>.</NOBR></DIV></SPAN></FONT><FONT 
+face=Times size=3><SPAN style="FONT-SIZE: 18px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 9964px"><NOBR><B>17.6 O 
+<B><SPAN class=goohl0>Padrão</SPAN></B> <I>Observer 
+</I>(observador)</B></NOBR></DIV></SPAN></FONT><FONT face=Times size=3><SPAN 
+style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10018px"><NOBR>Para uma 
+interface de usuário interativa, gostaríamos de mostrar os resultados do 
+teste</NOBR></DIV>
+<DIV 
+style="LEFT: 127px; POSITION: absolute; TOP: 10042px"><NOBR>incrementalmente ao 
+passo que ele é executado. Para conseguir isto, JUnit utiliza o <B><SPAN 
+class=goohl0>padrão</SPAN></B></NOBR></DIV>
+<DIV 
+style="LEFT: 127px; POSITION: absolute; TOP: 10067px"><NOBR><I><B>Observer</B></I>. 
+A classe <I><B>TestRunner </B></I>implementa uma interface <I><B>TestListener 
+</B></I>que possui métodos</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10091px"><NOBR><I>addFailure 
+</I>e <I>addError </I>próprios. A interface faz o papel de 
+<I><B>Observer</B></I>, ou observador. A classe</NOBR></DIV>
+<DIV 
+style="LEFT: 127px; POSITION: absolute; TOP: 10116px"><NOBR><I><B>TestResult 
+</B></I>faz o papel de <I>Subject</I>, isto é, o sujeito observado. 
+<I><B>TestResult </B></I>fornece o método</NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 10166px"><NOBR><I><B>public 
+void addListener(TestListener listener)</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10215px"><NOBR>que adiciona um 
+observador. Quando o método <I>addFailure </I>de <I><B>TestResult </B></I>é 
+invocado, além de</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10239px"><NOBR>atualizar sua 
+lista de falhas, o método invoca o método <I>addFailure </I>em cada um de 
+seus</NOBR></DIV>
+<DIV 
+style="LEFT: 127px; POSITION: absolute; TOP: 10264px"><NOBR>observadores:</NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 10314px"><NOBR><I><B>public 
+synchronized void addFailure(Test test, AssertionFailedError e) 
+{</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 10338px"><NOBR><I><B>fFailures.addElement(new 
+TestFailure(test, e));</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 10363px"><NOBR><I><B>for 
+(Enumeration e= cloneListeners().elements(); e.hasMoreElements(); ) 
+{</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 289px; POSITION: absolute; TOP: 10388px"><NOBR><I><B>((TestListener)e.nextElement()).addFailure(test, 
+e);</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 10413px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 10437px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10486px"><NOBR>Na interface de 
+usuário textual, o método <I>addFailure </I>de <I><B>TestRunner 
+</B></I>simplesmente exibe um</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10511px"><NOBR>caractere F na 
+tela. Na interface gráfica de usuário, este método adiciona a falha a uma lista 
+de</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10535px"><NOBR>exibição e 
+altera a cor da barra de progresso para 
+vermelho.</NOBR></DIV></SPAN></FONT><FONT face=Times size=3><SPAN 
+style="FONT-SIZE: 18px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10587px"><NOBR><B>17.7 O Hack 
+Reflexão</B></NOBR></DIV></SPAN></FONT><FONT face=Times size=3><SPAN 
+style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10641px"><NOBR>Recorde-se que 
+um caso de teste é uma instância da classe <I><B>TestCase</B></I>. Para criar um 
+suíte de testes</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10666px"><NOBR>em Java puro e 
+simples, um usuário teria que criar uma nova subclasse de <I><B>TestCase 
+</B></I>para cada caso</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10690px"><NOBR>de teste, e 
+instanciá-la. Uma forma elegante de se fazer isso é através de classes internas 
+anônimas,</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10715px"><NOBR>ou <I>inner 
+classes</I>, criando-se o caso de teste como uma instância de uma subclasse que 
+não possui</NOBR></DIV></SPAN></FONT>
+<DIV style="LEFT: 0px; POSITION: absolute; TOP: 10867px">
+<HR>
+
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD align=right bgColor=#eeeeee><FONT face=arial,sans-serif><A 
+      name=10><B>Page 10</B></A></FONT></TD></TR></TBODY></TABLE></DIV><FONT 
+face=Times size=3><SPAN style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 10977px"><NOBR>nome. O que, 
+ainda, é muito trabalhoso. No <B><SPAN class=goohl1>projeto</SPAN></B> do JUnit, 
+ao invés disso, é utilizada uma técnica</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11002px"><NOBR>bastante 
+engenhosa (o hack, ou técnia engenhosa, denominado ‘Reflexão’).</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11051px"><NOBR>O usuário 
+fornece uma classe para cada suíte de testes - denominada, digamos, 
+<I><B>MySuite </B></I>- que é uma</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11075px"><NOBR>subclasse de 
+<I><B>TestCase</B></I>, e que contém muitos métodos de teste, cada um dos quais 
+possuindo um</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11100px"><NOBR>nome iniciado 
+com a string 'test'. Estas classes são tratadas como casos de teste 
+individuais.</NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 11150px"><NOBR><I><B>public 
+class MySuite extends TestCase {</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 11174px"><NOBR><I><B>void 
+testFoo () {</B></I></NOBR></DIV>
+<DIV style="LEFT: 289px; POSITION: absolute; TOP: 11199px"><NOBR><I><B>int x = 
+MyClass.add (1, 2);</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 289px; POSITION: absolute; TOP: 11224px"><NOBR><I><B>assertEquals 
+(x, 3);</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 11249px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 11273px"><NOBR><I><B>void 
+testBar () {</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 289px; POSITION: absolute; TOP: 11298px"><NOBR><I><B>…</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 235px; POSITION: absolute; TOP: 11322px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 11347px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11396px"><NOBR>A classe objeto 
+<I><B>MySuite </B></I>é passada, ela própria, para o construtor de 
+<I><B>TestSuite</B></I>. Através de reflexão,</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11421px"><NOBR>o código de 
+<I><B>TestSuite </B></I>intancia <I><B>MySuite </B></I>para cada um dos seus 
+métodos que são iniciados pelos</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11445px"><NOBR>caracteres 
+'test', passando os nomes dos métodos como um argumento para o construtor. 
+Como</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11470px"><NOBR>resultado, para 
+cada método de teste, um novo objeto <I><B>TestCase </B></I>é criado, com seu 
+nome atado ao</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11495px"><NOBR>nome do método 
+de teste. O método <I>runTest </I>de <I><B>TestCase </B></I>invoca, de novo 
+através de reflexão, o</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11520px"><NOBR>método cujo 
+nome corresponde ao nome do próprio objeto <I><B>TestCase</B></I>, mais ou menos 
+assim:</NOBR></DIV>
+<DIV style="LEFT: 181px; POSITION: absolute; TOP: 11569px"><NOBR><I><B>void 
+runTest () {</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 11594px"><NOBR><I><B>Method m 
+= getMethod (fName);</B></I></NOBR></DIV>
+<DIV style="LEFT: 235px; POSITION: absolute; TOP: 11619px"><NOBR><I><B>m.invoke 
+();</B></I></NOBR></DIV>
+<DIV 
+style="LEFT: 181px; POSITION: absolute; TOP: 11643px"><NOBR><I><B>}</B></I></NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11692px"><NOBR>Este esquema é 
+obscuro, e perigoso, e não é o tipo de coisa que você deve imitar no seu código. 
+No</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11717px"><NOBR>código do JUnit 
+este esquema é justificado, pois é limitado a apenas uma pequena parte do 
+código</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11741px"><NOBR>trazendo uma 
+enorme vantagem para o usuário de JUnit.</NOBR></DIV></SPAN></FONT><FONT 
+face=Times size=3><SPAN style="FONT-SIZE: 18px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11793px"><NOBR><B>17.8 
+Questões para Estudo</B></NOBR></DIV></SPAN></FONT><FONT face=Times size=3><SPAN 
+style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11847px"><NOBR>Estas questões 
+surgiram quando eu construí o modelo de objeto para JUnit. Nem todas 
+possuem</NOBR></DIV>
+<DIV style="LEFT: 127px; POSITION: absolute; TOP: 11871px"><NOBR>respostas 
+únicas.</NOBR></DIV></SPAN></FONT>
+<DIV style="LEFT: 0px; POSITION: absolute; TOP: 12055px">
+<HR>
+
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD align=right bgColor=#eeeeee><FONT face=arial,sans-serif><A 
+      name=11><B>Page 11</B></A></FONT></TD></TR></TBODY></TABLE></DIV><FONT 
+face=Times size=3><SPAN style="FONT-SIZE: 14px; FONT-FAMILY: Times">
+<DIV style="LEFT: 138px; POSITION: absolute; TOP: 12164px"><NOBR>· Por que os 
+<I>listeners </I>fazem parte do <I><B>TestResult</B></I>? O <I><B>TestResult 
+</B></I>não é, ele próprio, uma espécie de</NOBR></DIV>
+<DIV 
+style="LEFT: 149px; POSITION: absolute; TOP: 12190px"><NOBR><I>listener</I>?</NOBR></DIV>
+<DIV style="LEFT: 138px; POSITION: absolute; TOP: 12213px"><NOBR>· É possível 
+que um <I><B>TestSuite </B></I>não contenha nenhum teste? Ele pode conter a si 
+mesmo?</NOBR></DIV>
+<DIV style="LEFT: 138px; POSITION: absolute; TOP: 12238px"><NOBR>· Os nomes de 
+testes são únicos?</NOBR></DIV>
+<DIV style="LEFT: 138px; POSITION: absolute; TOP: 12263px"><NOBR>· O campo 
+<I>fFailedTest </I>de <I><B>TestFailure </B></I>sempre aponta para um 
+<I><B>TestCase</B></I>?</NOBR></DIV></SPAN></FONT></BODY></HTML>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Multi-file class diagram">
+  <ClassDiagramComponents>
+    <Class name="AbstractFactory" package="abstractfactory" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Cruize" package="abstractfactory" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="driveFast" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Focus" package="abstractfactory" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="driveSlow" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="FordFactory" package="abstractfactory" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="createCarroSport" returnType="IAbstractCarroSport" visibility="public"/>
+        <Method name="createCarroEconomico" returnType="IAbstractCarroEconomico" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="GMFactory" package="abstractfactory" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="createCarroSport" returnType="IAbstractCarroSport" visibility="public"/>
+        <Method name="createCarroEconomico" returnType="IAbstractCarroEconomico" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="IAbstractCarroEconomico" package="abstractfactory" visibility="public" xPosition="1520.0" yPosition="20.0">
+      <Methods>
+        <Method name="driveSlow" returnType="void" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Interface name="IAbstractCarroSport" package="abstractfactory" visibility="public" xPosition="1820.0" yPosition="20.0">
+      <Methods>
+        <Method name="driveFast" returnType="void" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Interface name="IAbstractFactory" package="abstractfactory" visibility="public" xPosition="2120.0" yPosition="20.0">
+      <Methods>
+        <Method name="createCarroEconomico" returnType="IAbstractCarroEconomico" visibility="public"/>
+        <Method name="createCarroSport" returnType="IAbstractCarroSport" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Class name="Mustang" package="abstractfactory" visibility="public" xPosition="20.0" yPosition="420.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="driveFast" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Prisma" package="abstractfactory" visibility="public" xPosition="320.0" yPosition="420.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="driveSlow" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="abstractfactory.Cruize" target="abstractfactory.IAbstractCarroSport"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="abstractfactory.Focus" target="abstractfactory.IAbstractCarroEconomico"/>
+    <UseRelation source="abstractfactory.GMFactory" target="abstractfactory.IAbstractCarroSport" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="abstractfactory.FordFactory" target="abstractfactory.IAbstractFactory"/>
+    <UseRelation source="abstractfactory.GMFactory" target="abstractfactory.IAbstractCarroEconomico" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="abstractfactory.IAbstractFactory" target="abstractfactory.IAbstractCarroSport" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="abstractfactory.GMFactory" target="abstractfactory.IAbstractFactory"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="abstractfactory.Prisma" target="abstractfactory.IAbstractCarroEconomico"/>
+    <UseRelation source="abstractfactory.FordFactory" target="abstractfactory.IAbstractCarroEconomico" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="abstractfactory.FordFactory" target="abstractfactory.IAbstractCarroSport" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="abstractfactory.IAbstractFactory" target="abstractfactory.IAbstractCarroEconomico" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="abstractfactory.Mustang" target="abstractfactory.IAbstractCarroSport"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
